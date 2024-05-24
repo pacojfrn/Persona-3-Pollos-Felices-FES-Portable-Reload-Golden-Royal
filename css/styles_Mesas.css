@@ -40,7 +40,7 @@ header {
 
 .Contenedor {
     width:75vw;
-    display: flex;
+    display: block;
     justify-content: center;
 }
 

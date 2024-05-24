@@ -25,6 +25,7 @@ if (!isset($_SESSION['Usuario'])) {
     <div class="admin-options">
         <a href="Admin_EMP.php">Administrar Meseros</a>
         <a href="Admin_PDT.php">Administrar Productos</a>
+        <a href="Admin_Mesas.php">Administrar Mesas</a>
         <a href="Cerrar_sesion.php">Cerrar Sesión</a>
     </div>
 </body>
