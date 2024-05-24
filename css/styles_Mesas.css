@@ -38,10 +38,21 @@ header {
     right: 0px; 
 }
 
+
+
 .Contenedor {
     width:75vw;
     display: block;
     justify-content: center;
+}
+
+.titulo{
+    display: flex;
+    justify-content: center;
+}
+
+.Mesas button{
+    border-radius: 100%;
 }
 
 footer {

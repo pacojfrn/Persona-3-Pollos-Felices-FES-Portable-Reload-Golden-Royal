@@ -53,16 +53,14 @@ $conn->close();
     </div>
     <div class="Contenedor">
         <div class="titulo">
-        <h1>Seleccione la mesa:</h1>
+            <h1>Seleccione la mesa:</h1>
         </div>
         <div class="Mesas">
             <?php if ($mesas): ?>
                 <?php foreach ($mesas as $mesa): ?>
-                    <div id="boton<?php echo $mesa['id']; ?>">
-                        <button>
-                            <p>mesa <?php echo $mesa['No_Mesas']; ?></p>
-                        </button>
-                    </div>
+                    <button id="boton<?php echo $mesa['No_Mesas']; ?>">
+                        mesa <?php echo $mesa['No_Mesas']; ?>
+                    </button>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>No se encontraron mesas.</p>
@@ -75,6 +73,5 @@ $conn->close();
             <a href="mailto:pacoeco23@hotmail.com"><i class="bi bi-envelope"></i></a><br>
         </div>
     </footer>
-    <script src="../js/scriptM.js"></script>
 </body>
 </html>
