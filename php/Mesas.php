@@ -41,6 +41,18 @@ $conn->close();
     <link rel="stylesheet" type="text/css" href="../css/styles_Mesas.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Mesas</title>
+    <style>
+        .titulo{
+            display: flex;
+            justify-content: center;
+        }
+
+        .Mesas button {
+            border-radius: 100%;
+            padding: 30px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>

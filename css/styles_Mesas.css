@@ -46,15 +46,6 @@ header {
     justify-content: center;
 }
 
-.titulo{
-    display: flex;
-    justify-content: center;
-}
-
-.Mesas button{
-    border-radius: 100%;
-}
-
 footer {
     background-color: #333;
     color: #fff;
