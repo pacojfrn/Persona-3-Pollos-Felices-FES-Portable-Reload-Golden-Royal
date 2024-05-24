@@ -52,8 +52,10 @@ $conn->close();
             padding: 20px;
             margin: 2vw;
             width: 5vw;
-            height:auto;
+            height: auto;
+            cursor: pointer;
         }
+
         .Mesas button.selected {
             background-color: #007bff; /* Cambia el color de fondo al seleccionado */
             color: white; /* Cambia el color del texto al seleccionado */
@@ -63,7 +65,7 @@ $conn->close();
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let selectedButton = null;
-            
+
             document.querySelectorAll(".Mesas button").forEach(button => {
                 button.addEventListener("click", function() {
                     if (selectedButton) {
@@ -77,20 +79,7 @@ $conn->close();
 
             document.getElementById("nextButton").addEventListener("click", function() {
                 if (selectedButton) {
-                    const selectedTableNumber = selectedTable.getAttribute('data-mesa');
-                    alert('Mesa seleccionada: ' + selectedTableNumber);
-                    // Aquí puedes enviar el número de mesa seleccionado al servidor o a la siguiente página.
-                    // Por ejemplo, mediante un formulario oculto:
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = 'procesar_mesa.php';  // Cambia esto al nombre de tu archivo PHP de procesamiento
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'mesaSeleccionada';
-                    input.value = selectedTableNumber;
-                    form.appendChild(input);
-                    document.body.appendChild(form);
-                    form.submit();
+                    document.getElementById("mesaForm").submit();
                 } else {
                     alert("Por favor, seleccione una mesa.");
                 }
