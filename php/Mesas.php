@@ -1,19 +1,19 @@
 <?php 
 session_start();
-include 'conexion.php';
+include 'conexion_empleado.php';
 
 if (!isset($_SESSION['Usuario'])) {
     echo '
     <script>
         alert("Por favor, inicia sesión");
-        window.location = "../index.php";
+        window.location = "index.php";
     </script>';
     session_destroy();
     exit();
 }
 
 $correo = $_SESSION['Usuario'];
-$query = mysqli_query($conexionU,"SELECT Usuario, Foto FROM usuarios where correo = '$correo'" );
+$query = mysqli_query($conn,"SELECT Usuario, Foto FROM usuarios where correo = '$correo'" );
 
 if($query){
     if(mysqli_num_rows($query)>0){
@@ -51,7 +51,7 @@ if($query){
 <body>
     <header>
         <div class="perfil-container">
-        <a class = "perfil">
+            <a class = "perfil">
                 <img src="<?php echo $imagensrc; ?>" alt="Foto de perfil" style="max-width: 150px; max-height: 150px; border-radius: 50%">  
             </a>
             <a class = "nombre"><?php echo $nombreUsu ?></a>
@@ -59,32 +59,8 @@ if($query){
         </div>
     </header>
     <div class="Contenedor">
-        <?php
-        $bd = new mysqli("localhost","root","","libreria");
-        $id=$_GET["id"];
-        $query=mysqli_query($bd,"SELECT * from inventario WHERE id=$id");
-        while ($datos=mysqli_fetch_array($query)) {
-            $portada = $datos['Foto'];
-            $tipoImagen1 = "image/jpeg";
-            $imagenbase64_1 = base64_encode($portada);
-            $imagensrc_1 = "data:$tipoImagen1;base64,$imagenbase64_1";
-            echo "<img src=".$imagensrc_1." alt='Portada del Manga' class='Portada'>";
-            echo "<div class='InfoD'>";
-            echo "<h1 class='Titulo'>".$datos["Nombre_Manga"]."</h1>";
-            echo "<p class='Desc'>".$datos["Descripcion"]."</p>";
-            echo "<div class='Compra'>";
-            echo "<p class='Precio'>$".$datos["Precio"]."</p>";
-            echo '<button class="CarritoP"><i class="bi bi-cart-plus"></i></button>';
-            echo "</div>";
-            echo "</div>";
-        }
-        ?>
     </div>
-
     <footer>
-        <div class="registro">
-            <a href="../Inventario/Registrar_Mangas.php">¿Registrar un manga?</a>
-        </div>
         <div class="info">
             <p>Para mas informacion contactar:</p>
             <a href="mailto:pacoeco23@hotmail.com"><i class="bi bi-envelope"></i></a><br>

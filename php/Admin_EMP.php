@@ -35,7 +35,7 @@ $result = $conn->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Meseros</title>
-    <link rel="stylesheet" href="css/styles_EMP_PDT.css">
+    <link rel="stylesheet" href="../css/styles_EMP_PDT.css">
 </head>
 <body>
     <h1>Administrar Meseros</h1>

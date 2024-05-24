@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles_index.css">
+    <link rel="stylesheet" href="../css/styles_index.css">
     <title>Login/Registro</title>
 </head>
 <body>
@@ -47,6 +47,6 @@
 
         </div>
      </div>
-     <script src="script.js"></script>
+     <script src="../js/script.js"></script>
 </body>
 </html>
