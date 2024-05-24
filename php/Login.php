@@ -7,7 +7,7 @@
     $validar_login = mysqli_query($conn, "SELECT * FROM empleado WHERE codigo = '$cod'");
 
     if(mysqli_num_rows($validar_login) > 0){
-        $_SESSION['nombre'] = $nombre;
+        $_SESSION['Usuario'] = $nombre;
         header("location:Mesas.php");
         exit();
     }else{

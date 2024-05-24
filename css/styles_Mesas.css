@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.perfil-container a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 10px;
+    font-size: large;
+}
+.side-menu {
+    width: 15vw;
+    height: 88%;
+    display: flex;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding-top: 20px;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    right: 0px; 
+}
+
+.Contenedor {
+    width:75vw;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    text-align: left;
+    bottom: 0;
+    width: 100%;
+    flex-direction: row-reverse;
+    position: fixed;
+    justify-content:left;
+}
+
+.info{
+    width:25%;
+    margin:10px;
+    align-content:center;
+    background-color:gray;
+    border-radius:15px;
+}
+
+.info a,p {
+    display: inline-block;
+    margin-left: 3vw;
+}
+
+footer a{
+    color:white;
+    text-decoration:none;
+    padding:2px;
+}
+
+footer a i{
+    display: flex;
+    scale:1.5;
+    margin:5px;
+}
+
+footer a:hover{
+    color:black;
+}
