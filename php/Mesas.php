@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require 'conexion_empleado.php';
+include 'conexion_empleado.php';
 
 if (isset($_SESSION['Usuario'])) {
     echo '
@@ -49,10 +49,54 @@ $conn->close();
 
         .Mesas button {
             border-radius: 100%;
-            padding: 30px;
-            margin: 10px;
+            padding: 20px;
+            margin: 2vw;
+            width: 5vw;
+            height:auto;
+        }
+        .Mesas button.selected {
+            background-color: #007bff; /* Cambia el color de fondo al seleccionado */
+            color: white; /* Cambia el color del texto al seleccionado */
+            border: 2px solid #007bff; /* Agrega un borde sólido alrededor del botón seleccionado */
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let selectedButton = null;
+            
+            document.querySelectorAll(".Mesas button").forEach(button => {
+                button.addEventListener("click", function() {
+                    if (selectedButton) {
+                        selectedButton.classList.remove("selected");
+                    }
+                    this.classList.add("selected");
+                    selectedButton = this;
+                    document.getElementById("selectedTable").value = this.getAttribute("data-mesa");
+                });
+            });
+
+            document.getElementById("nextButton").addEventListener("click", function() {
+                if (selectedButton) {
+                    const selectedTableNumber = selectedTable.getAttribute('data-mesa');
+                    alert('Mesa seleccionada: ' + selectedTableNumber);
+                    // Aquí puedes enviar el número de mesa seleccionado al servidor o a la siguiente página.
+                    // Por ejemplo, mediante un formulario oculto:
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = 'procesar_mesa.php';  // Cambia esto al nombre de tu archivo PHP de procesamiento
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'mesaSeleccionada';
+                    input.value = selectedTableNumber;
+                    form.appendChild(input);
+                    document.body.appendChild(form);
+                    form.submit();
+                } else {
+                    alert("Por favor, seleccione una mesa.");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -60,25 +104,28 @@ $conn->close();
             <a href="Cerrar_sesion.php">Cerrar sesión</a>
         </div>
     </header>
-    <div class="side-menu">
-        <button>Siguiente</button>
-    </div>
-    <div class="Contenedor">
-        <div class="titulo">
-            <h1>Seleccione la mesa:</h1>
+    <form id="mesaForm" action="procesar_seleccion.php" method="post">
+        <input type="hidden" id="selectedTable" name="selectedTable" value="">
+        <div class="side-menu">
+            <button type="button" id="nextButton">Siguiente</button>
         </div>
-        <div class="Mesas">
-            <?php if ($mesas): ?>
-                <?php foreach ($mesas as $mesa): ?>
-                    <button id="boton<?php echo $mesa['No_Mesas']; ?>">
-                        mesa <?php echo $mesa['No_Mesas']; ?>
-                    </button>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No se encontraron mesas.</p>
-            <?php endif; ?>
+        <div class="Contenedor">
+            <div class="titulo">
+                <h1>Seleccione la mesa:</h1>
+            </div>
+            <div class="Mesas">
+                <?php if ($mesas): ?>
+                    <?php foreach ($mesas as $mesa): ?>
+                        <button type="button" data-mesa="<?php echo $mesa['No_Mesas']; ?>">
+                            mesa <?php echo $mesa['No_Mesas']; ?>
+                        </button>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No se encontraron mesas.</p>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
+    </form>
     <footer>
         <div class="info">
             <p>Para más información contactar:</p>
