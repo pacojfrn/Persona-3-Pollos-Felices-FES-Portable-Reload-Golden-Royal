@@ -85,8 +85,14 @@
         ?>
         <div class="metodo-pago">
             <h2>Método de pago:</h2>
-            <button onclick="alert('Pago con tarjeta de crédito')">Tarjeta de crédito</button>
-            <button onclick="alert('Pago en efectivo')">Efectivo</button>
+            <button onclick="alert('Pago con tarjeta de crédito')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+</svg></button>
+            <button onclick="alert('Pago en efectivo')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+  <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+  <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
+</svg></button>
         </div>
     </div>
 </body>
