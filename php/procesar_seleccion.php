@@ -135,8 +135,16 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             width: 75vw;
         }
         .Chead button, h2, h4{
-            height: 20px;
             align-items:center;
+        }
+        .Chead button{
+            background-color: #ffe240;
+            border-radius: 3px; 
+            margin:10px;
+            padding: 15px;
+        }
+        .Chead a{
+            text-decoration: none;
         }
     </style>
     <script>
