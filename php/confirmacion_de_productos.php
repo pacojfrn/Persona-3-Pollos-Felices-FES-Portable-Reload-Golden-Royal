@@ -57,10 +57,7 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             position: relative;
         }
         .producto img {
-            width: 100%;
-            max-width: 200px; /* Ajustar el ancho máximo de las imágenes */
-            height: 150px; /* Ajustar la altura fija de las imágenes */
-            object-fit: contain; /* Mantener la relación de aspecto sin recortar */
+            max-width: 100%;
             border-radius: 10px;
         }
         .producto h2 {
@@ -80,6 +77,7 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 5px;
+            position: absolute;
             bottom: 15px;
             right: 15px;
         }
@@ -231,20 +229,40 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.text(`Ticket de Pago - ${paymentMethod}`, 10, 10);
-        doc.text(`Mesa: ${<?php echo json_encode($mesaSeleccionada); ?>}`, 10, 20);
+        doc.setFontSize(20);
+        doc.text(`Ticket de Pago - ${paymentMethod}`, 10, 20);
 
-        let y = 30;
+        doc.setFontSize(16);
+        doc.text(`Mesa: ${<?php echo json_encode($mesaSeleccionada); ?>}`, 10, 30);
+
+        doc.setFontSize(14);
+        let y = 50;
         for (const [name, item] of Object.entries(cart)) {
-            doc.text(`Plato: ${name}`, 10, y);
-            doc.text(`Precio: $${item.price}`, 10, y + 10);
-            doc.text(`Cantidad: ${item.quantity}`, 10, y + 20);
-            y += 30;
+            doc.text(`${name}`, 10, y);
+            doc.text(`${item.quantity}`, 80, y);
+            doc.text(`$${item.price}`, 150, y);
+            y += 10;
+            doc.line(10, y, 200, y); // Línea separadora de productos
+            y += 10;
         }
 
-        doc.text(`Total: $${<?php echo json_encode($total); ?>}`, 10, y);
+        y += 10;
+        doc.setFontSize(16);
+        doc.text(`Total: $${<?php echo json_encode($total); ?>}`, 150, y); // Total a la derecha
+
+        // Dibujar bordes
+        doc.setLineWidth(0.5);
+        doc.line(5, 5, 205, 5); // Línea superior
+        doc.line(5, 5, 5, y + 10); // Línea izquierda
+        doc.line(205, 5, 205, y + 10); // Línea derecha
+        doc.line(5, y + 10, 205, y + 10); // Línea inferior
+
+        // Dibujar secciones
+        doc.line(5, 40, 205, 40); // Línea debajo del título
+
         doc.save('ticket.pdf');
     }
 </script>
 </body>
 </html>
+
