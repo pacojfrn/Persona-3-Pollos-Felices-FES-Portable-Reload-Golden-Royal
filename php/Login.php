@@ -1,22 +1,27 @@
 <?php
-    session_start();
+session_start();
 
-    include 'conexion_empleado.php';
-    $cod = $_POST['codigo'];
+include 'conexion_empleado.php';
+$cod = $_POST['codigo'];
 
-    $validar_login = mysqli_query($conn, "SELECT * FROM empleado WHERE codigo = '$cod'");
+// Consulta segura para evitar inyecciones SQL
+$stmt = $conn->prepare("SELECT * FROM empleado WHERE codigo = ?");
+$stmt->bind_param("s", $cod);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    if(mysqli_num_rows($validar_login) > 0){
-        $_SESSION['nombre'] = $nombre;
-        header("location: Mesas.php");
-        exit();
-    }else{
-        echo '
-        <script>
-            alert("Código de empleado incorrecto o no existe");
-            window.location = "Index.php";
-        </script>';
-        exit();
-    }
-
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    // Asignar variables de sesión adecuadas
+    $_SESSION['Usuario'] = $row['nombre']; // o cualquier campo que quieras usar
+    header("Location: Mesas.php");
+    exit();
+} else {
+    echo '
+    <script>
+        alert("Código de empleado incorrecto o no existe");
+        window.location = "Index.php";
+    </script>';
+    exit();
+}
 ?>

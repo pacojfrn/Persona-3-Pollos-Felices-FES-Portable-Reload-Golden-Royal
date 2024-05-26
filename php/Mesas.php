@@ -2,7 +2,7 @@
 session_start();
 include 'conexion_empleado.php';
 
-if (isset($_SESSION['Usuario'])) {
+if (!isset($_SESSION['Usuario'])) {
     echo '
     <script>
         alert("Por favor, inicia sesión");
