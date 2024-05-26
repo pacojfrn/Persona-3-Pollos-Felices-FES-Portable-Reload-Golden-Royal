@@ -61,6 +61,12 @@ $conn->close();
             color: white; /* Cambia el color del texto al seleccionado */
             border: 2px solid #007bff; /* Agrega un borde sólido alrededor del botón seleccionado */
         }
+        header{
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -89,8 +95,10 @@ $conn->close();
 </head>
 <body>
     <header>
-        <div class="perfil-container">
+        <div class="close_ss">
+            <button>
             <a href="Cerrar_sesion.php">Cerrar sesión</a>
+            </button>
         </div>
     </header>
     <form id="mesaForm" action="procesar_seleccion.php" method="post">
