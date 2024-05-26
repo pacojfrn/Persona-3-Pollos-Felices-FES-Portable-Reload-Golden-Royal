@@ -181,10 +181,21 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             input.name = 'cart';
             input.value = JSON.stringify(cart);
             form.appendChild(input);
+            
+            const mesaInput = document.createElement('input');
+            mesaInput.type = 'hidden';
+            mesaInput.name = 'selectedTable';
+            mesaInput.value = '<?php echo htmlspecialchars($mesaSeleccionada); ?>';
+            form.appendChild(mesaInput);
 
             document.body.appendChild(form);
             form.submit();
         }
+        const mesaInput = document.createElement('input');
+        mesaInput.type = 'hidden';
+        mesaInput.name = 'selectedTable';
+        mesaInput.value = '<?php echo htmlspecialchars($mesaSeleccionada); ?>';
+        form.appendChild(mesaInput);
     </script>
 </head>
 <body>
