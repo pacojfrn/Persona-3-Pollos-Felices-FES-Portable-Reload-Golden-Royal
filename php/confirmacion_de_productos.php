@@ -72,20 +72,31 @@
         $total = 0;
         if (isset($_POST['cart'])) {
             $cart = json_decode($_POST['cart'], true);
+            $total = 0;
             foreach ($cart as $name => $item) {
+<<<<<<< HEAD
                 $total += $item['price'] * $item['quantity'];
+=======
+                $subtotal = $item['price'] * $item['quantity'];
+                $total += $subtotal;
+>>>>>>> 6c5d70bd26bd2dc0c671216fde86f585250d34f2
                 echo '<div class="producto">';
                 echo '<h2>' . $name . '</h2>';
                 echo '<p>Precio: $' . $item['price'] . '</p>';
                 echo '<p>Cantidad: ' . $item['quantity'] . '</p>';
+                echo '<p>Subtotal: $' . $subtotal . '</p>';
                 echo '<img src="data:image/jpeg;base64,' . $item['photo'] . '" alt="' . $name . '">';
                 echo '</div>';
             }
+            echo '<div class="total">';
+            echo '<h2>Total: $' . $total . '</h2>';
+            echo '</div>';
         } else {
             echo '<p>No hay productos en el carrito.</p>';
         }
         ?>
         <div class="metodo-pago">
+<<<<<<< HEAD
             <h2>Total: $<?php echo $total; ?></h2>
             <button onclick="generatePDF('Pago con tarjeta de crédito')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
@@ -95,6 +106,23 @@
   <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
   <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
 </svg></button>
+=======
+            <h2>Método de pago:</h2>
+            <button onclick="alert('Pago con tarjeta de crédito')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                </svg>
+                Tarjeta de crédito
+            </button>
+            <button onclick="alert('Pago en efectivo')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                  <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                  <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
+                </svg>
+                Efectivo
+            </button>
+>>>>>>> 6c5d70bd26bd2dc0c671216fde86f585250d34f2
         </div>
     </div>
 

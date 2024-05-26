@@ -16,6 +16,9 @@ if ($conn->connect_error) {
 // Consulta SQL para obtener los platos
 $sql = "SELECT nombre, precio, foto FROM platos";
 $result = $conn->query($sql);
+
+// Recibir el número de mesa seleccionado
+$mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : 'No seleccionada';
 ?>
 
 <!DOCTYPE html>
@@ -125,6 +128,24 @@ $result = $conn->query($sql);
         #checkoutButton:hover {
             background-color: #e55d00;
         }
+        .Chead{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            width: 75vw;
+        }
+        .Chead button, h2, h4{
+            align-items:center;
+        }
+        .Chead button{
+            background-color: #ffe240;
+            border-radius: 3px; 
+            margin:10px;
+            padding: 15px;
+        }
+        .Chead a{
+            text-decoration: none;
+        }
     </style>
     <script>
         let cart = {};
@@ -166,17 +187,25 @@ $result = $conn->query($sql);
     </script>
 </head>
 <body>
-    <header>Platos Disponibles</header>
+    <header>
+        <div class="Chead">
+            <button>
+                <a href="Mesas.php">Regresar</a>
+            </button>
+            <h2>Platos disponibles</h2>
+            <h4>Mesa: <?php echo htmlspecialchars($mesaSeleccionada); ?></h4>
+        </div>
+    </header>
     <div class="platos">
         <?php
         if ($result->num_rows > 0) {
             // Salida de datos de cada fila
             while($row = $result->fetch_assoc()) {
                 echo '<div class="producto">';
-                echo '<h2>' . $row["nombre"] . '</h2>';
-                echo '<p>Precio: $' . $row["precio"] . '</p>';
-                echo '<img src="data:image/jpeg;base64,' . base64_encode($row["foto"]) . '" alt="' . $row["nombre"] . '">';
-                echo '<button onclick="addToCart(\'' . $row["nombre"] . '\', ' . $row["precio"] . ', \'' . base64_encode($row["foto"]) . '\')">Agregar al carrito</button>';
+                echo '<h2>' . htmlspecialchars($row["nombre"]) . '</h2>';
+                echo '<p>Precio: $' . htmlspecialchars($row["precio"]) . '</p>';
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($row["foto"]) . '" alt="' . htmlspecialchars($row["nombre"]) . '">';
+                echo '<button onclick="addToCart(\'' . htmlspecialchars($row["nombre"]) . '\', ' . htmlspecialchars($row["precio"]) . ', \'' . base64_encode($row["foto"]) . '\')">Agregar al carrito</button>';
                 echo '</div>';
             }
         } else {
