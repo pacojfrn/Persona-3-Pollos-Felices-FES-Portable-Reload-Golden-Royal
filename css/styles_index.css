@@ -9,6 +9,11 @@
 body{
     margin: 0;
     overflow: hidden;
+    background: url('../_0be0f3ab-e06c-45f3-b8ac-5ed69adea04d.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .contenedor_all{
@@ -26,7 +31,7 @@ body{
     display: flex;
     justify-content: center;
     backdrop-filter: blur(5px);
-    background-color: rgba(0, 128, 255, 0.2);
+    background-color: rgba(255, 176, 176, 0.2);
 }
 
 .caja_back div{
@@ -57,8 +62,8 @@ body{
 }
 
 .caja_back button:hover{
-    background: #fff;
-    color: #46a2fd;
+    background: #FFDE34;
+    color: #000;
 }
 
 /*Formularios aquí*/
@@ -77,7 +82,7 @@ body{
 .contenedor_login_register form{
     width: 100%;
     padding: 80px 20px;
-    background-color: white;
+    background-color: #Ffed90;
     position: absolute;
     border-radius: 20px;
 }
@@ -86,7 +91,7 @@ body{
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
-    color: #46A2FD;
+    color: #000;
 }
 
 .contenedor_login_register form input{
@@ -104,7 +109,7 @@ body{
     margin-top: 40px;
     border: none;
     font-size: 14px;
-    background: #46A2fd;
+    background: #000;
     color: white;
     cursor: pointer;
     outline: none;

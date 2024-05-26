@@ -6,8 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #FFB0B0, #fff
-    );
+    background: linear-gradient(135deg, #FFB800, #fff);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,12 +16,12 @@ body {
 
 .container {
     text-align: center;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.7);
     padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     animation: fadeIn 1s ease-in-out;
-    color: #333;
+    color: white;
     width: 90%;
     max-width: 800px;
 }
@@ -41,64 +40,70 @@ body {
 h1 {
     margin-bottom: 1rem;
     font-size: 2.5rem;
-    color: #1E90FF;
+    animation: textGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.7);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
+    }
 }
 
 table {
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border-collapse: collapse;
 }
 
 table, th, td {
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 th, td {
-    padding: 0.75rem;
+    padding: 0.5rem;
     text-align: center;
 }
 
 th {
-    background: #1E90FF;
-    color: white;
+    background: rgba(0, 0, 0, 0.5);
 }
 
-tbody tr:hover {
-    background-color: #f1f1f1;
-    transition: background-color 0.3s ease;
+td form {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"] {
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
-    width: 100px;
 }
 
 input[type="submit"], .back-button button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
-    background: #000;
+    background: rgba(255, 255, 255, 0.2);
     color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    text-decoration: none;
 }
 
-.delete-btn {
+.delete{
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
-    background: #333;
+    background: rgba(255, 255, 255, 0.2);
     color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    text-decoration: none;
 }
 
-.delete-btn:hover{
+.delete:hover{
     background:rgba(255, 0, 0, 1) ;
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -106,26 +111,32 @@ input[type="submit"], .back-button button {
 
 input[type="submit"]:hover {
     background: #2EE552;
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.back-button button:hover{
-    background: #FFB0B0;
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.back-button button:hover{
+    background: #F19827;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.delete {
+    text-decoration: none;
+}
+
 form {
-    display: inline-block;
     margin-bottom: 1rem;
 }
 
 label {
     display: block;
     margin: 0.5rem 0;
-    color: #333;
+}
+
+input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .back-button {
@@ -135,10 +146,10 @@ label {
 
 @media (min-width: 768px) {
     .container {
-        width: 70%;
+        width: 80%;
     }
 
-    input[type="text"], input[type="number"] {
-        max-width: 300px;
+    input[type="text"] {
+        max-width: 500px;
     }
 }

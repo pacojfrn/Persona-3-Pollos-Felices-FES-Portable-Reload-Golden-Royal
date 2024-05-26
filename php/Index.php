@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['Usuario'])){
+    if(isset($_SESSION['usuario'])){
         header("location: php/Principal.php");
         exit();
     }
@@ -35,7 +35,7 @@
         <div class="contenedor_login_register">
             <form action="Login.php" method = "POST" class="form_login">
                 <h2>Ingrese código de empleado</h2>
-                 <input type="text" placeholder="Código de empleado" REQUIRED name = "codigo">
+                 <input type="password" placeholder="Código de empleado" REQUIRED name = "codigo">
                  <button>Entrar</button>
             </form>
 

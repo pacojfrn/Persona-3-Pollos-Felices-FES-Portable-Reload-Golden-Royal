@@ -8,7 +8,7 @@ $cod_adm = $_POST['cod_adm'];
 $validar_login = mysqli_query($conn, "SELECT * FROM admin1 WHERE codigo = '$cod_adm'");
 
 if(mysqli_num_rows($validar_login) > 0){
-    $_SESSION['Usuario'] = 'admin';  // Setting a static value for simplicity
+    $_SESSION['Usuario'] = 'admin'; 
     header("location: Pagina_Admin.php");
     exit();
 }else{

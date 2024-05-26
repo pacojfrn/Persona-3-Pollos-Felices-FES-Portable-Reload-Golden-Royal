@@ -21,13 +21,14 @@ if (!isset($_SESSION['Usuario'])) {
     <link rel="stylesheet" href="../css/styles_Pagina_Admin.css">
 </head>
 <body>
-    <h1>Panel de Administración</h1>
-    <div class="admin-options">
-        <a href="Admin_EMP.php">Administrar Meseros</a>
-        <a href="Admin_PDT.php">Administrar Productos</a>
-        <a href="Admin_Mesas.php">Administrar Mesas</a>
-        <a href="Cerrar_sesion.php">Cerrar Sesión</a>
+    <div class="container">
+        <h1>Panel de Administración</h1>
+        <div class="admin-options">
+            <a href="Admin_EMP.php" class="admin-option">Administrar Meseros</a>
+            <a href="Admin_PDT.php" class="admin-option">Administrar Productos</a>
+            <a href="Admin_Mesas.php" class="admin-option">Administrar Mesas</a>
+            <a href="Cerrar_sesion.php" class="admin-option logout">Cerrar Sesión</a>
+        </div>
     </div>
 </body>
 </html>
-

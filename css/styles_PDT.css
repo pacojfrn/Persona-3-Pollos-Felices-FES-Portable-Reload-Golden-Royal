@@ -6,8 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #FFB0B0, #fff
-    );
+    background: linear-gradient(135deg, #FFDE34, #fff);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,18 +18,20 @@ body {
     text-align: center;
     background: rgba(255, 255, 255, 0.9);
     padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 1s ease-in-out;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideIn 1s ease-in-out;
     color: #333;
     width: 90%;
-    max-width: 800px;
+    max-width: 1000px;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
-@keyframes fadeIn {
+@keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -41,12 +42,12 @@ body {
 h1 {
     margin-bottom: 1rem;
     font-size: 2.5rem;
-    color: #1E90FF;
+    color: #ff9800;
 }
 
 table {
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border-collapse: collapse;
 }
 
@@ -55,70 +56,69 @@ table, th, td {
 }
 
 th, td {
-    padding: 0.75rem;
+    padding: 0.5rem;
     text-align: center;
 }
 
 th {
-    background: #1E90FF;
+    background: #ff9800;
     color: white;
 }
 
-tbody tr:hover {
-    background-color: #f1f1f1;
-    transition: background-color 0.3s ease;
+td form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"], input[type="number"], input[type="file"] {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 100px;
 }
 
 input[type="submit"], .back-button button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
-    background: #000;
+    background: #ff9800;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    text-decoration: none;
+    margin: 0.2rem;
 }
 
-.delete-btn {
+input[type="submit"]:hover {
+    background: #2EE552;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.delete {
+    text-decoration: none;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
-    background: #333;
+    background: #ff9800;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    text-decoration: none;
+    margin: 0.2rem;
 }
 
-.delete-btn:hover{
+.delete:hover{
     background:rgba(255, 0, 0, 1) ;
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-input[type="submit"]:hover {
-    background: #2EE552;
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 .back-button button:hover{
-    background: #FFB0B0;
+    background: #7C7C7C;
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 form {
-    display: inline-block;
     margin-bottom: 1rem;
 }
 
@@ -128,17 +128,30 @@ label {
     color: #333;
 }
 
+input[type="text"], input[type="number"] {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
 .back-button {
     display: inline-block;
     margin-top: 1rem;
 }
 
+td img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
 @media (min-width: 768px) {
     .container {
-        width: 70%;
+        width: 80%;
     }
 
     input[type="text"], input[type="number"] {
-        max-width: 300px;
+        max-width: 500px;
     }
 }

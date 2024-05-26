@@ -1,14 +1,14 @@
 <?php
     session_start();
 
-    require 'conexion_empleado.php';
+    include 'conexion_empleado.php';
     $cod = $_POST['codigo'];
 
-    $validar_login = mysqli_query($conn, "SELECT * FROM empleado WHERE codigo = '$cod'");
+    $validar_login = mysqli_query($conexionU, "SELECT * FROM empleado WHERE codigo = '$cod'");
 
     if(mysqli_num_rows($validar_login) > 0){
-        $_SESSION['Usuario'] = $nombre;
-        header("location:Mesas.php");
+        $_SESSION['nombre'] = $nombre;
+        header("location: Punto_Venta.php");
         exit();
     }else{
         echo '
