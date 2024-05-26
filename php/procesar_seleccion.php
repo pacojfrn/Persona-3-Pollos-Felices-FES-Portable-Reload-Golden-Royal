@@ -45,7 +45,8 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
         .platos {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
+            width: 75vw;
             padding: 20px;
         }
         .producto {
