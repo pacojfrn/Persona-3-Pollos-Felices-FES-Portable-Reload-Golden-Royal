@@ -57,9 +57,9 @@ $conn->close();
         }
 
         .Mesas button.selected {
-            background-color: #007bff; /* Cambia el color de fondo al seleccionado */
+            background-color: #ff7410;; /* Cambia el color de fondo al seleccionado */
             color: white; /* Cambia el color del texto al seleccionado */
-            border: 2px solid #007bff; /* Agrega un borde sólido alrededor del botón seleccionado */
+            border: 2px solid #333; /* Agrega un borde sólido alrededor del botón seleccionado */
         }
         header{
             display: flex;
