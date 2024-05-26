@@ -159,6 +159,16 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             updateCartMenu();
         }
 
+        function removeFromCart(name) {
+            if (cart[name]) {
+                cart[name].quantity--;
+                if (cart[name].quantity <= 0) {
+                    delete cart[name];
+                }
+                updateCartMenu();
+            }
+        }
+
         function updateCartMenu() {
             const cartMenu = document.getElementById('cartMenuItems');
             cartMenu.innerHTML = '';
@@ -166,7 +176,12 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             for (const [name, item] of Object.entries(cart)) {
                 const itemTotal = item.quantity * item.price;
                 total += itemTotal;
-                cartMenu.innerHTML += `<div class="cart-item"><span>${name} (x${item.quantity})</span><span>$${itemTotal.toFixed(2)}</span></div>`;
+                cartMenu.innerHTML += `
+                    <div class="cart-item">
+                        <span>${name} (x${item.quantity})</span>
+                        <span>$${itemTotal.toFixed(2)}</span>
+                        <button onclick="removeFromCart('${name}')">Eliminar</button>
+                    </div>`;
             }
             cartMenu.innerHTML += `<div class="cart-item"><strong>Total</strong><strong>$${total.toFixed(2)}</strong></div>`;
         }

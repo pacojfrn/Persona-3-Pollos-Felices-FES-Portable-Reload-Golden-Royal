@@ -54,6 +54,7 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             text-align: center;
             width: 220px;
             display: inline-block;
+            position: relative;
         }
         .producto img {
             max-width: 100%;
@@ -68,6 +69,20 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             font-size: 18px;
             margin: 5px 0;
             color: #333;
+        }
+        .producto button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+        }
+        .producto button:hover {
+            background-color: #e55d00;
         }
         .metodo-pago {
             text-align: center;
@@ -85,32 +100,110 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
         .metodo-pago button:hover {
             background-color: #e55d00;
         }
+        .Chead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 98vw;
+        }
+        .Chead button, h2, h4 {
+            align-items: center;
+        }
+        .Chead button {
+            background-color: #ffe240;
+            border-radius: 3px; 
+            margin: 10px;
+            padding: 15px;
+        }
+        .Chead a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <header>
-        Confirmación de Productos <br> Mesa: <?php echo htmlspecialchars($mesaSeleccionada); ?>
-    </header>
-    <div class="contenedor" id="ticket">
-        <?php
-        $total = 0;
-        if (isset($_POST['cart'])) {
-            $cart = json_decode($_POST['cart'], true);
-            foreach ($cart as $name => $item) {
-                $total += $item['price'] * $item['quantity'];
-                echo '<div class="producto">';
-                echo '<h2>' . htmlspecialchars($name) . '</h2>';
-                echo '<p>Precio: $' . htmlspecialchars($item['price']) . '</p>';
-                echo '<p>Cantidad: ' . htmlspecialchars($item['quantity']) . '</p>';
-                echo '<img src="data:image/jpeg;base64,' . htmlspecialchars($item['photo']) . '" alt="' . htmlspecialchars($name) . '">';
-                echo '</div>';
-            }
-        } else {
-            echo '<p>No hay productos en el carrito.</p>';
+<header>
+    <div class="Chead">
+        <button>
+            <a href="procesar_seleccion.php">Regresar</a>
+        </button>
+        <h2>Confirmacion de productos</h2>
+        <h4>Mesa: <?php echo htmlspecialchars($mesaSeleccionada); ?></h4>
+    </div>
+</header>
+<div class="contenedor" id="ticket">
+    <?php
+    $total = 0;
+    if (isset($_POST['cart'])) {
+        $cart = json_decode($_POST['cart'], true);
+        foreach ($cart as $name => $item) {
+            $total += $item['price'] * $item['quantity'];
+            echo '<div class="producto" data-name="' . htmlspecialchars($name) . '">';
+            echo '<h2>' . htmlspecialchars($name) . '</h2>';
+            echo '<p>Precio: $' . htmlspecialchars($item['price']) . '</p>';
+            echo '<p>Cantidad: ' . htmlspecialchars($item['quantity']) . '</p>';
+            echo '<img src="data:image/jpeg;base64,' . htmlspecialchars($item['photo']) . '" alt="' . htmlspecialchars($name) . '">';
+            echo '<button onclick="removeFromCart(\'' . htmlspecialchars($name) . '\')">Eliminar</button>';
+            echo '</div>';
         }
-        ?>
-        <div class="metodo-pago">
-            <h2>Total: $<?php echo htmlspecialchars($total); ?></h2>
+    } else {
+        echo '<p>No hay productos en el carrito.</p>';
+    }
+    ?>
+    <div class="metodo-pago">
+        <h2>Total: $<?php echo htmlspecialchars($total); ?></h2>
+        <button onclick="generatePDF('Pago con tarjeta de crédito')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+        <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+        </svg></button>
+        <button onclick="generatePDF('Pago en efectivo')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+        <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+        <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
+        </svg></button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0/html2canvas.min.js"></script>
+<script>
+    let cart = <?php echo isset($cart) ? json_encode($cart) : '[]'; ?>;
+
+    function removeFromCart(name) {
+        if (cart[name]) {
+            if (cart[name].quantity > 1) {
+                cart[name].quantity--;
+            } else {
+                delete cart[name];
+            }
+            updatePage();
+        }
+    }
+
+    function updatePage() {
+        const container = document.getElementById('ticket');
+        container.innerHTML = '';
+
+        let total = 0;
+        for (const [name, item] of Object.entries(cart)) {
+            total += item.price * item.quantity;
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('producto');
+            productDiv.setAttribute('data-name', name);
+
+            productDiv.innerHTML = `
+                <h2>${name}</h2>
+                <p>Precio: $${item.price}</p>
+                <p>Cantidad: ${item.quantity}</p>
+                <img src="data:image/jpeg;base64,${item.photo}" alt="${name}">
+                <button onclick="removeFromCart('${name}')">Eliminar</button>
+            `;
+
+            container.appendChild(productDiv);
+        }
+
+        const totalDiv = document.createElement('div');
+        totalDiv.classList.add('metodo-pago');
+        totalDiv.innerHTML = `<h2>Total: $${total.toFixed(2)}</h2>`;
+        totalDiv.innerHTML += `
             <button onclick="generatePDF('Pago con tarjeta de crédito')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
             <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
@@ -119,45 +212,37 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
             <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
             </svg></button>
-        </div>
-    </div>
+        `;
 
-    <!-- Asegúrate de que las librerías se cargan correctamente -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0/html2canvas.min.js"></script>
-    <script>
-        window.onload = function() {
-            function generatePDF(paymentMethod) {
-                const { jsPDF } = window.jspdf;
-                const content = document.getElementById('ticket');
+        container.appendChild(totalDiv);
+    }
 
-                // Asegurarse de que la función html2canvas esté definida
-                if (typeof html2canvas !== 'function') {
-                    alert('html2canvas no está definida.');
-                    return;
-                }
-                
-                setTimeout(() => {
-                    html2canvas(content).then(canvas => {
-                        const imgData = canvas.toDataURL('image/png');
-                        const pdf = new jsPDF();
-                        const imgProps = pdf.getImageProperties(imgData);
-                        const pdfWidth = pdf.internal.pageSize.getWidth();
-                        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    function generatePDF(paymentMethod) {
+        const { jsPDF } = window.jspdf;
+        const content = document.getElementById('ticket');
 
-                        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                        pdf.save('ticket.pdf');
-                        
-                        alert(paymentMethod);
-                    });
-                }, 1000); // Agregar un retraso de 1 segundo para asegurar que las imágenes se carguen
-            }
-
-            // Asigna la función a los botones
-            document.querySelectorAll('button').forEach(button => {
-                button.onclick = () => generatePDF(button.textContent);
-            });
+        if (typeof html2canvas !== 'function') {
+            alert('html2canvas no está definida.');
+            return;
         }
-    </script>
+
+        setTimeout(() => {
+            html2canvas(content).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save('ticket.pdf');
+                
+                alert(paymentMethod);
+            });
+        }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', updatePage);
+</script>
 </body>
 </html>
