@@ -64,7 +64,10 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             transform: scale(1.05);
         }
         .producto img {
-            max-width: 100%;
+            width: 100%;
+            max-width: 200px; /* Ajustar el ancho máximo de las imágenes */
+            height: 150px; /* Ajustar la altura fija de las imágenes */
+            object-fit: contain; /* Mantener la relación de aspecto sin recortar */
             border-radius: 10px;
         }
         .producto h2 {
