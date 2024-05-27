@@ -1,4 +1,16 @@
-<?php
+<?php 
+session_start();
+include 'conexion_empleado.php';
+
+if (!isset($_SESSION['Usuario'])) {
+    echo '
+    <script>
+        alert("Por favor, inicia sesión");
+        window.location = "index.php";
+    </script>';
+    session_destroy();
+    exit();
+}
 // Configuración de la conexión a la base de datos
 $servername = "localhost";
 $username = "root";
@@ -57,7 +69,10 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             position: relative;
         }
         .producto img {
-            max-width: 100%;
+            width: 100%;
+            max-width: 200px; /* Ajustar el ancho máximo de las imágenes */
+            height: 150px; /* Ajustar la altura fija de las imágenes */
+            object-fit: contain; /* Mantener la relación de aspecto sin recortar */
             border-radius: 10px;
         }
         .producto h2 {
@@ -77,7 +92,6 @@ $mesaSeleccionada = isset($_POST['selectedTable']) ? $_POST['selectedTable'] : '
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 5px;
-            position: absolute;
             bottom: 15px;
             right: 15px;
         }

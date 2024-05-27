@@ -1,4 +1,16 @@
-<?php
+<?php 
+session_start();
+include 'conexion_empleado.php';
+
+if (!isset($_SESSION['Usuario'])) {
+    echo '
+    <script>
+        alert("Por favor, inicia sesión");
+        window.location = "index.php";
+    </script>';
+    session_destroy();
+    exit();
+}
 // Configuración de la conexión a la base de datos
 $servername = "localhost";
 $username = "root";
